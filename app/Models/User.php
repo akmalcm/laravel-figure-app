@@ -43,7 +43,7 @@ class User extends Authenticatable {
 
     // user has many purchase
     public function purchases() {
-        return $this->hasMany(Purchases::class, 'buyer_id');
+        return $this->hasMany(Purchase::class, 'buyer_id');
     }
 
     public function can_purchase() {

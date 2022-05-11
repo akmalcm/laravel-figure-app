@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->string('postcode', 7);
             $table->string('city', 30);
             $table->string('state', 30);
+            $table->enum('status', ['pending','completed'])->default('pending');
             $table->timestamps();
 
             $table->foreign('buyer_id')

@@ -23,7 +23,49 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm">
+            @if ($errors->any() || session('message'))
+                <div class="toast alert @if ($errors->any()) alert-danger @else alert-primary @endif"
+                    style="position: fixed; top: 20px; right: 20px; z-index:1" role="alert" aria-live="assertive"
+                    aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="mr-auto">
+                            @if ($errors->any())
+                                Error
+                            @else
+                                Info
+                            @endif
+                        </strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        @if ($errors->any())
+                            {{ $errors->first() }}
+                        @else
+                            {{ session('message') }}
+                        @endif
+                    </div>
+                </div>
+                <script>
+                    $('.toast').fadeIn();
+
+                    let counter = 0;
+                    let interval = setInterval(function() {
+                        counter++;
+                        // dismiss after 5 second, as interval are 1 second
+                        if (counter == 5) {
+                            $('.toast').fadeOut();
+                            clearInterval(interval);
+                        }
+                    }, 1000);
+
+                    // dismiss the toast on button close clicked
+                    $('.btn-close').click(function(e) {
+                        e.preventDefault();
+                        $('.toast').fadeOut();
+                    });
+                </script>
+            @endif
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Kongming Art') }}
@@ -38,12 +80,18 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
+                            <a class="nav-link" href="{{ route('home') }}">
+                                <i class="bi bi-house-door"></i>
+                                {{ __('Home') }}
+                            </a>
                         </li>
                         @auth
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('purchases') }}">{{ __('Purchases') }}</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('purchases') }}">
+                                    <i class="bi bi-bag"></i>
+                                        {{ __('Purchases') }}
+                                </a>
+                            </li>
                         @endauth
                     </ul>
 
@@ -71,8 +119,8 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                                                         document.getElementById('logout-form').submit();">
+                                        <i class="bi bi-unlock"></i> {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -89,6 +137,15 @@
 
         <main class="py-4">
             @yield('content')
+
+            <footer class="pt-3 text-muted text-center text-small">
+                <p class="mb-1">&copy; 2022 Kongming Art</p>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="#">Privacy</a></li>
+                    <li class="list-inline-item"><a href="#">Terms</a></li>
+                    <li class="list-inline-item"><a href="#">Support</a></li>
+                </ul>
+            </footer>
         </main>
     </div>
 </body>

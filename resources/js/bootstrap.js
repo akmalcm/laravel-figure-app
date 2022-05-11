@@ -1,8 +1,11 @@
 window._ = require('lodash');
-window.$ = window.jQuery = require('jquery');
 try {
+    window.Popper = require('@popperjs/core').default;
+    window.$ = window.jQuery = require('jquery');
     require('bootstrap');
-} catch (e) {}
+    require('datatables.net-bs5')();
+    require('datatables.net-buttons-bs5')();
+} catch (e) { }
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

@@ -17,8 +17,8 @@ class UserSeeder extends Seeder {
         // check whether there is row with id 1, if none, then data will be created
         if (User::all()->first() == null) {
             User::create([
-                'name' => 'Akmal Hakim',
-                'email' => 'akmalhakim9811@gmail.com',
+                'name' => 'Admin',
+                'email' => 'admin@gmail.com',
                 'password' => bcrypt('123'),
                 'role' => 'admin',
             ]);
@@ -26,6 +26,13 @@ class UserSeeder extends Seeder {
             User::create([
                 'name' => 'Buyer 1',
                 'email' => 'buyer1@gmail.com',
+                'password' => bcrypt('123'),
+                'role' => 'buyer',
+            ]);
+
+            User::create([
+                'name' => 'Buyer 2',
+                'email' => 'buyer2@gmail.com',
                 'password' => bcrypt('123'),
                 'role' => 'buyer',
             ]);

@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model {
     use HasFactory;
 
-    // return review based on the purchase
-    public function review() {
-        return $this->hasOne(Review::class, 'on_purchase');
-    }
+    protected $fillable = ['firstName', 'lastName', 'phone', 'address', 'postcode', 'city', 'state', 'status', 'buyer_id', 'figure_id', 'id'];
 
     // returns the instance of the user who transacts the purchase
     public function buyer() {
         return $this->belongsTo(User::class, 'buyer_id');
+    }
+
+    public function figure() {
+        return $this->belongsTo(Figure::class, 'figure_id');
     }
 }
