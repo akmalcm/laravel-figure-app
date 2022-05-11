@@ -28,6 +28,7 @@ Features:
 User Data (email/password):
 `admin@gmail.com` : `123`
 `buyer1@gmail.com` : `123`
+`buyer2@gmail.com` : `123`
 
 Sample Demo Page
 
